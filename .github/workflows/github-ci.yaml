@@ -20,6 +20,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install pytest
+          pip install black
 
       - name: Black formatting check
         run: black --check -v .
