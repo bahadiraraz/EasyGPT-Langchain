@@ -1,4 +1,4 @@
-name: Test
+name: CI/CD Workflow
 
 on: [push]
 
@@ -26,4 +26,5 @@ jobs:
         run: black --check -v .
 
       - name: Test
+        needs: Black formatting check
         run: pytest -v
