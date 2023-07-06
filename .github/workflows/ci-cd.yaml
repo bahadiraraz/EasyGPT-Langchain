@@ -25,7 +25,7 @@ jobs:
       - name: Black formatting check
         run: black --check -v .
 
-  run tests:
+  tests:
     needs: Black_formatting_check
     runs-on: ubuntu-latest
 
