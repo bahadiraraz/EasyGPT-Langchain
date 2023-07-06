@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  Black formatting check:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,8 +25,8 @@ jobs:
       - name: Black formatting check
         run: black --check -v .
 
-  test:
-    needs: build
+  run tests:
+    needs: Black formatting check
     runs-on: ubuntu-latest
 
     steps:
