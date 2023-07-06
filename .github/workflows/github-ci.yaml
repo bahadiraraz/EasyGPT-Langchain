@@ -1,30 +1,44 @@
 name: CI/CD Workflow
 
-on: [push]
+on:
+  push:
+    branches: [main]
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        pyv: ["3.8", "3.9", "3.10"]
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.pyv }}
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install black
+          pip install pytest
+
+      - name: Black formatting check
+        run: black --check -v .
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.10
 
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
           pip install pytest
-          pip install black
 
-      - name: Black formatting check
-        run: black --check -v .
-  test:
-    - name: Test
-      needs: Black formatting check
-      run: pytest -v
+      - name: Run tests
+        run: pytest -v
