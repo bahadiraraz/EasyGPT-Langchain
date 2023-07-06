@@ -22,7 +22,7 @@ jobs:
           pip install pytest
 
       - name: Black formatting check
-        run: black --check .
+        run: black --check -v .
 
       - name: Test
         run: pytest -v
