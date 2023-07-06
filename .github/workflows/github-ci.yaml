@@ -24,7 +24,7 @@ jobs:
 
       - name: Black formatting check
         run: black --check -v .
-
-      - name: Test
-        needs: Black formatting check
-        run: pytest -v
+  test:
+    - name: Test
+      needs: Black formatting check
+      run: pytest -v
