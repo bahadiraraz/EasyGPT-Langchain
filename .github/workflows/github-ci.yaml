@@ -22,9 +22,7 @@ jobs:
           pip install pytest
 
       - name: Black formatting check
-        uses: psf/black@v23.3.0
-        with:
-          check: true
+        run: black --check .
 
       - name: Test
         run: pytest -v
