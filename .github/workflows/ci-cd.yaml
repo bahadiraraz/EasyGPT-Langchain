@@ -2,45 +2,52 @@ name: CI/CD Workflow
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
 
 jobs:
-  Black_formatting_check:
+  install-test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.8", "3.9", "3.10","3.11"]
     runs-on: ubuntu-latest
-
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies
+      - name: Set up a virtual environment for Python ${{ matrix.python-version }}
         run: |
-          pip install -r requirements.txt
-          pip install black
-          pip install pytest
+             python -m pip install --upgrade virtualenv
+             virtualenv venv
+             source venv/bin/activate
 
-      - name: Black formatting check
-        run: black --check -v .
-
-  tests:
-    needs: Black_formatting_check
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-
-      - name: Install dependencies
+      - name: Install the base dependencies
         run: |
-          pip install -r requirements.txt
-          pip install pytest
+             source venv/bin/activate
+             python -m pip install --upgrade poetry
 
+      - name: Check the correctness of the project config
+        run: |
+             source venv/bin/activate
+             poetry check
+
+      - name: Install the package
+        run: |
+             source venv/bin/activate
+             poetry install
       - name: Run tests
-        run: pytest -v
+        run: |
+             source venv/bin/activate
+             pytest -v
