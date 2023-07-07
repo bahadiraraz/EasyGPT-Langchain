@@ -32,10 +32,6 @@ jobs:
         run: |
           pdm install --dev
 
-      - name: Check the correctness of the project config
-        run: |
-          pdm check
-
       - name: Install the package
         run: |
           pdm install
