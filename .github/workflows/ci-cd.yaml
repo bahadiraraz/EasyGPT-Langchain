@@ -12,8 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      build-output: ${{ steps.store-output.outputs.build-output }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -33,11 +31,6 @@ jobs:
         run: |
           source venv/bin/activate
           python -m pip install --upgrade poetry
-
-      - name: Store build output
-        id: store-output
-        run: |
-          echo "::set-output name=build-output::output-value"
 
   test:
     needs: build
@@ -62,11 +55,7 @@ jobs:
           source venv/bin/activate
           python -m pip install --upgrade poetry
 
-      - name: Use build output
-        run: |
-          echo "Build Output: ${{ needs.build.outputs.build-output }}"
-
       - name: Run tests
         run: |
           source venv/bin/activate
-          poetry run pytest -v
+          poetry run pytest -v --cache-clear
