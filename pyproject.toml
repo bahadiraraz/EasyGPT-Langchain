@@ -1,15 +1,15 @@
 [tool.poetry]
-name = "easygpt-langchain"
+name = "easygpt"
 version = "0.0.1"
 description = "EasyGPT is a Python library designed to simplify the utilization of numerous GPT-related tools and Langchain agents."
 authors = ["Tarık Kaan Koç <tarikkaan1koc@gmail.com>", "Kadir Nar <kadir.nar@hotmail.com>"]
 maintainers = ["Tarık Kaan Koç <tarikkaan1koc@gmail.com>", "Kadir Nar <kadir.nar@hotmail.com>","Bahadır Araz <bahadiraraz@protonmail.com>"]
 readme = "README.md"
-packages = [{include = "easygpt-langchain"}]
-homepage = "https://github.com/CoomingSoon/EasyGPT-Langchain"
-repository = "https://github.com/CoomingSoon/EasyGPT-Langchain"
-documentation = "https://github.com/CoomingSoon/EasyGPT-Langchain/blob/main/README.md"
-keywords = ["easygpt-langchain"]
+packages = [{include = "easygpt"}]
+homepage = "https://github.com/CoomingSoon/EasyGPT"
+repository = "https://github.com/CoomingSoon/EasyGPT"
+documentation = "https://github.com/CoomingSoon/EasyGPT/blob/main/README.md"
+keywords = ["GPT", "GPT-3", "GPT-4", "Langchain", "NLP", "Python", "AI text generation", "NLP automation", "language translation", "language models", "AI language models", "easy NLP", "easy GPT", "Python", "library", "minimal coding", "efficiency", "automation", "simplified GPT", "simplified Langchain", "minimal code NLP", "fast NLP tasks", "streamlined language processing"]
 license = "Apache-2.0"
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -62,20 +62,17 @@ isort = "^5.12.0"
 parameterized = "^0.9.0"
 tox = "^4.6.4"
 
-
-
 [tool.isort]
 line_length = 88
 profile = "black"
 
 [tool.bandit]
-target = ["tests", "easygpt-langchain"]
+target = ["tests", "easygpt"]
 tests = ["B201", "B301"]
 
 [tool.autoflake]
 check = true
-imports = ["easygpt-langchain"]
-
+imports = ["easygpt"]
 
 [tool.black]
 line-length = 88

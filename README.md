@@ -1,5 +1,6 @@
-# EasyGPT-Langchain
+<h1 align="center">🦜️🔗 EasyGPT</h1>
+<div align="center">
 
-🦜️🔗 EasyGPT-Langchain is a powerful language model developed by OpenAI, based on the GPT-3.5 architecture. It provides multilingual support for various natural language processing tasks.
+EasyGPT is a comprehensive Python library designed to simplify the use of various GPT-based tools and Langchain agents. With its user-friendly design, EasyGPT democratizes access to language model technologies, enabling developers, researchers, and businesses to integrate these tools more effectively. 🚀🔬💼
 
-
+</div>
