@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "easygpt-langchain"
 version = "0.0.1"
-description = "EasyGPT-Langchain is a powerful lang uage model developed by OpenAI, based on the GPT-3.5 architecture."
+description = "EasyGPT is a Python library designed to simplify the utilization of numerous GPT-related tools and Langchain agents."
 authors = ["Tarık Kaan Koç <tarikkaan1koc@gmail.com>", "Kadir Nar <kadir.nar@hotmail.com>"]
 maintainers = ["Tarık Kaan Koç <tarikkaan1koc@gmail.com>", "Kadir Nar <kadir.nar@hotmail.com>","Bahadır Araz <bahadiraraz@protonmail.com>"]
 readme = "README.md"
