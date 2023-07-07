@@ -10,13 +10,13 @@ on:
       - synchronize
 
 jobs:
-  install-test:
+  build-test:
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
         python-version: ["3.8", "3.9", "3.10", "3.11"]
-    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
 
@@ -47,6 +47,7 @@ jobs:
           poetry install
 
       - name: Run tests
+        needs: [build-test]
         run: |
           source venv/bin/activate
           pytest -v
