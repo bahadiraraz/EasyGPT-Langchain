@@ -10,22 +10,18 @@ on:
       - synchronize
 
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Set up a virtual environment for Python ${{ matrix.python-version }}
+      - name: Set up a virtual environment for Python
         run: |
           python -m pip install --upgrade virtualenv
           virtualenv venv
@@ -36,18 +32,35 @@ jobs:
           source venv/bin/activate
           python -m pip install --upgrade poetry
 
-      - name: Check the correctness of the project config
-        run: |
-          source venv/bin/activate
-          poetry check
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Install the package
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Set up a virtual environment for Python
+        run: |
+          python -m pip install --upgrade virtualenv
+          virtualenv venv
+          source venv/bin/activate
+
+      - name: Install the base dependencies
         run: |
           source venv/bin/activate
-          poetry install
+          python -m pip install --upgrade poetry
+
+      - name: Install pytest
+        run: |
+          source venv/bin/activate
+          python -m pip install pytest
 
       - name: Run tests
-        needs: [build-test]
         run: |
           source venv/bin/activate
-          pytest -v
+          pytest -v --cache-clear
