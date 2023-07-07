@@ -62,15 +62,15 @@ jobs:
             .\venv\Scripts\Activate
           else
             source venv/bin/activate
-          fi
+          fi 
           poetry install
 
       - name: Run tests
         shell: bash
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            .\venv\Scripts\Activate
-          else
-            source venv/bin/activate
+          if [ "$RUNNER_OS" == "Windows" ]; then 
+            .\venv\Scripts\Activate 
+          else 
+            source venv/bin/activate 
           fi 
           pytest -v
