@@ -2,8 +2,8 @@
 name = "easygpt-langchain"
 version = "0.0.1"
 description = "EasyGPT-Langchain is a powerful lang uage model developed by OpenAI, based on the GPT-3.5 architecture."
-authors = ["Kadir Nar <kadir.nar@hotmail.com>","Bahadır Araz <bahadiraraz@protonmail.com>","Kaan Koç <tarikkaan1koc@gmail.com>"]
-maintainers = ["Kadir Nar <kadir.nar@hotmail.com>","Bahadır Araz <bahadiraraz@protonmail.com>","Kaan Koç <tarikkaan1koc@gmail.com>"]
+authors = ["Tarık Kaan Koç <tarikkaan1koc@gmail.com>", "Kadir Nar <kadir.nar@hotmail.com>"]
+maintainers = ["Tarık Kaan Koç <tarikkaan1koc@gmail.com>", "Kadir Nar <kadir.nar@hotmail.com>","Bahadır Araz <bahadiraraz@protonmail.com>"]
 readme = "README.md"
 packages = [{include = "easygpt-langchain"}]
 homepage = "https://github.com/CoomingSoon/EasyGPT-Langchain"
