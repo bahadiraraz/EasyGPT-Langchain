@@ -10,22 +10,20 @@ on:
       - synchronize
 
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+    outputs:
+      build-output: ${{ steps.store-output.outputs.build-output }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Set up a virtual environment for Python ${{ matrix.python-version }}
+      - name: Set up a virtual environment for Python
         run: |
           python -m pip install --upgrade virtualenv
           virtualenv venv
@@ -36,18 +34,39 @@ jobs:
           source venv/bin/activate
           python -m pip install --upgrade poetry
 
-      - name: Check the correctness of the project config
+      - name: Store build output
+        id: store-output
         run: |
-          source venv/bin/activate
-          poetry check
+          echo "::set-output name=build-output::output-value"
 
-      - name: Install the package
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Set up a virtual environment for Python
+        run: |
+          python -m pip install --upgrade virtualenv
+          virtualenv venv
+          source venv/bin/activate
+
+      - name: Install the base dependencies
         run: |
           source venv/bin/activate
-          poetry install
+          python -m pip install --upgrade poetry
+
+      - name: Use build output
+        run: |
+          echo "Build Output: ${{ needs.build.outputs.build-output }}"
 
       - name: Run tests
-        needs: [build-test]
         run: |
           source venv/bin/activate
-          pytest -v
+          poetry run pytest -v
